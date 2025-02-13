@@ -5,8 +5,8 @@ import streamlit as st
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-from services.ocr.nanonets import NanonetsOCR
-from components.comparison_view import ComparisonView
+from .services.ocr.nanonets import NanonetsOCR
+from .components.comparison_view import ComparisonView
 
 # Load environment variables
 load_dotenv()
