@@ -6,10 +6,10 @@ import pandas as pd
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 from pathlib import Path
 from typing import Optional, Tuple
-from ..services.ocr.nanonets import NanonetsOCR
-from ..processors.file_processor import FileProcessor
-from ..services.comparison import ComparisonService
-from ..services.ocr.nanonets_extract import clean_saved_response
+from app.services.ocr.nanonets import NanonetsOCR
+from app.processors.file_processor import FileProcessor
+from app.services.comparison import ComparisonService
+from app.services.ocr.nanonets_extract import clean_saved_response
 import json
 from io import BytesIO
 import os

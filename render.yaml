@@ -2,13 +2,13 @@ services:
   - type: web
     name: pdf-xl-compare
     env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: cd app && streamlit run main.py
+    buildCommand: pip install -r requirements.txt && pip install -e .
+    startCommand: streamlit run app/main.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.13.2
       - key: PYTHONPATH
-        value: /opt/render/project/src
+        value: .
       - key: CLAUDE_API_KEY
         sync: false
     autoDeploy: true 

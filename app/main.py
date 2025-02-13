@@ -2,39 +2,37 @@
 Main application entry point.
 """
 import streamlit as st
-import os
-from pathlib import Path
-from dotenv import load_dotenv
-from .services.ocr.nanonets import NanonetsOCR
-from .components.comparison_view import ComparisonView
-
-# Load environment variables
-load_dotenv()
+from app.services.ocr.nanonets import NanonetsOCR
+from app.components.comparison_view import ComparisonView
+from app.config import Config
 
 # Set page config first before any other Streamlit commands
 st.set_page_config(
-    page_title="Wage Comparison Tool",
-    page_icon="📊",
-    layout="wide"
+    page_title="PDF vs Excel Comparison",
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 def main():
     """Main application entry point."""
-    st.title("Wage Comparison Tool")
+    st.title("PDF vs Excel Data Comparison")
+    
+    # Initialize configuration and services
+    config = Config()  # This handles environment setup and credentials
     
     # Initialize OCR service
-    ocr_service = NanonetsOCR()
+    if 'ocr' not in st.session_state:
+        st.session_state.ocr = NanonetsOCR(config.api_key, config.model_id)
     
     # Initialize comparison view
-    comparison_view = ComparisonView(ocr_service)
+    comparison_view = ComparisonView(st.session_state.ocr)
     
-    # Create tabs
+    # Create tabs for different workflows
     tab1, tab2 = st.tabs([
         "Process PDF & Raw Response",
         "Compare with Processed Files"
     ])
     
-    # Show appropriate view based on selected tab
     with tab1:
         comparison_view.show_raw_response_tab()
     
